@@ -1,5 +1,5 @@
 import { Modal } from "@core/components";
-import { createPermission, IPermission } from "@core/lib";
+import { permissionsService, IPermission } from "@core/lib";
 import { useState } from "react";
 
 const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPermission) => void}) => {
@@ -9,7 +9,7 @@ const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPer
 
     async function createPerm() {
         if (!name.trim()) return;
-        const newPermId = await createPermission(name);
+        const newPermId = await permissionsService.createPermission(name);
         if (newPermId) {
             addPermission({id: newPermId, name: name, comment: ""})
             setName("");

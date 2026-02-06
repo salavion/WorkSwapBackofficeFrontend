@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { getRolePermissions, IPermission, IRole } from "@core/lib";
+import { permissionsService, IPermission, IRole } from "@core/lib";
 import PermissionItem from "./PermissionItem";
 
 interface PermissionsListProps {
@@ -14,7 +14,8 @@ const PermissionsList = ({permissions, selectedRole, setSaving}: PermissionsList
 
     useEffect(() => {
         async function loadPermsByRole() {
-            const data = await getRolePermissions(selectedRole?.id);
+            if (!selectedRole?.id) return;
+            const data = await permissionsService.getRolePermissions(selectedRole?.id);
             setCheckedPermissions(data);
         }
 

@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { 
-    updateRolePermissions, 
-    updatePermission, 
+    permissionsService, 
     useNotification, 
     IPermission,
-    IRole
+    IRole,
+    IPermissionUpdate
 } from '@core/lib';
 import { ActionMenu } from '@core/components';
 import { IKebabAction } from '@core/components/ui/ActionMenu';
@@ -40,11 +40,12 @@ const PermissionItem = ({
     }, [editMode]);
 
     async function savePermissions(permId: number, enabled: boolean) {
-        const params = {
+        if (!selectedRole?.id) return
+        const update: IPermissionUpdate = {
             permissionId: permId,
             enabled
         }
-        const res = await updateRolePermissions(selectedRole?.id, params);
+        const res = await permissionsService.updateRolePermissions(selectedRole?.id, update);
         if (res.ok) setSaving(false);
     }
 
@@ -66,11 +67,11 @@ const PermissionItem = ({
 
     async function savePermission(id: number | null) {
         if (!id) return
-        const params: IPermission = {id: 0, name: "", comment: ""};
-        if (permissionName) params.name = permissionName;
-        params.comment = permissionComment || "";
+        const update: IPermission = {id: 0, name: "", comment: ""};
+        if (permissionName) update.name = permissionName;
+        update.comment = permissionComment || "";
         setEditMode(false);
-        const res = await updatePermission(id, params);
+        const res = await permissionsService.updatePermission(id, update);
         if (!res.ok) {
             notificate("Разрешение успешно создано", "error");
         }

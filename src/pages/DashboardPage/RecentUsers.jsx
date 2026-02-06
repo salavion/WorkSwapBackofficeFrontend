@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecentUsers } from "@core/lib";
+import { userService } from "@core/lib";
 import { FormattedDate } from "@core/components"
 import { Link } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const RecentUsers = () => {
     useEffect(() => {
         const loadUsers = async () => {
             try {
-                const data = await getRecentUsers(3);
+                const data = await userService.getRecentUsers(3);
                 setUsers(data);
             } catch (err) {
                 console.error(err);

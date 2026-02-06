@@ -1,5 +1,5 @@
 import { FormattedDate, Tooltip } from "@core/components";
-import { formatSignedValue, getUsersCountMetrics } from "@core/lib";
+import { formatSignedValue, statisticService } from "@core/lib";
 import { useEffect, useState } from "react";
 
 const UsersStatCard = ({interval}) => {
@@ -8,7 +8,7 @@ const UsersStatCard = ({interval}) => {
 
     useEffect(() => {
         async function loadOnlineMetrics(interval) {
-            const data = await getUsersCountMetrics(interval.type, interval.multiplier);
+            const data = await statisticService.getUsersCountMetrics(interval.type, interval.multiplier);
             console.log(data)
             setMetrics(data);
             setUsersCount(data.usersCount);

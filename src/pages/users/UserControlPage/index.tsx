@@ -1,4 +1,4 @@
-import { getFullUserInfo, IFullUser, IReview, IShortListing, IUserForumContent } from "@core/lib";
+import { userService, IFullUser, IReview, IShortListing, IUserForumContent } from "@core/lib";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -11,7 +11,8 @@ const UserControlPage = () => {
 
     useEffect(() => {
         async function loadUserInfo() {
-            const data = await getFullUserInfo(userOpenId);
+            if (!userOpenId) return;
+            const data = await userService.getFullUserInfo(userOpenId);
             setUser(data.user);
             setListings(data.listings);
             setReviews(data.reviews);

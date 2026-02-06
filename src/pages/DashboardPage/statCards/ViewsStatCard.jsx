@@ -1,5 +1,5 @@
 import { FormattedDate, Tooltip } from "@core/components";
-import { formatSignedValue, getViewsCountMetrics } from "@core/lib";
+import { formatSignedValue, statisticService } from "@core/lib";
 import { useEffect, useState } from "react";
 
 const ViewsStatCard = ({interval}) => {
@@ -8,7 +8,7 @@ const ViewsStatCard = ({interval}) => {
 
     useEffect(() => {
         async function loadOnlineMetrics(interval) {
-            const data = await getViewsCountMetrics(interval.type, interval.multiplier);
+            const data = await statisticService.getViewsCountMetrics(interval.type, interval.multiplier);
             console.log(data)
             setMetrics(data);
             setViewsCount(data.viewsCount);

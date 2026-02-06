@@ -2,7 +2,7 @@ import {
     FormattedDate,
     Tooltip
 } from "@core/components";
-import { getOnlineMetricsMonthly, getOnline } from "@core/lib";
+import { statisticService } from "@core/lib";
 import { useEffect, useState } from "react";
 
 const OnlineStatCard = () => {
@@ -11,7 +11,7 @@ const OnlineStatCard = () => {
 
     useEffect(() => {
         async function loadOnline() {
-            const data = await getOnline();
+            const data = await statisticService.getOnline();
             setOnline(data)
         }
 
@@ -21,7 +21,7 @@ const OnlineStatCard = () => {
         }
         
         async function loadOnlineMetrics() {
-            const data = await getOnlineMetricsMonthly();
+            const data = await statisticService.getOnlineMetricsMonthly();
             setMetrics(data)
         }
 

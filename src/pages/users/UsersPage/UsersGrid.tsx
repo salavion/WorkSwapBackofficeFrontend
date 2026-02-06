@@ -1,6 +1,6 @@
 import React from "react";
 import UserCard from "./UserCard";
-import { getRecentUsers } from "@core/lib";
+import { userService } from "@core/lib";
 import { IUser } from "@core/lib";
 
 const UsersGrid = () => {
@@ -9,7 +9,7 @@ const UsersGrid = () => {
 
     React.useEffect(() => {
         async function loadUsers(amount:number) {
-            const data = await getRecentUsers(amount);
+            const data = await userService.getRecentUsers(amount);
             setUsers(data);
         }
 

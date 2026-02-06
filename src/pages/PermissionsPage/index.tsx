@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { 
-    getAllRoles,
-    getAllPermissions,
+    permissionsService,
     IRole,
     IPermission
 } from "@core/lib";
@@ -22,12 +21,12 @@ const PermissionsPage = () => {
 
     useEffect(() => {
         async function loadRoles() {
-            const data = await getAllRoles();
+            const data = await permissionsService.getAllRoles();
             setRoles(data);
         }
 
         async function loadPerms() {
-            const data = await getAllPermissions();
+            const data = await permissionsService.getAllPermissions();
             setPermissions(data);
         }
 

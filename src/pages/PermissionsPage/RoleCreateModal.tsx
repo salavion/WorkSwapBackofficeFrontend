@@ -1,5 +1,5 @@
 import { Modal } from "@core/components";
-import { createRole, IRole } from "@core/lib";
+import { permissionsService, IRole } from "@core/lib";
 import { useState } from "react";
 
 const RoleCreateModal = ({addRole}: {addRole: (role: IRole) => void}) => {
@@ -10,7 +10,7 @@ const RoleCreateModal = ({addRole}: {addRole: (role: IRole) => void}) => {
 
     async function createR() {
         if (!name.trim()) return;
-        const newRoleId = await createRole(name);
+        const newRoleId = await permissionsService.createRole(name);
         console.log(newRoleId)
         if (newRoleId) {
             addRole({id: newRoleId, name: name, level: 0})
